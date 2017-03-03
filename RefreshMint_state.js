@@ -45,12 +45,16 @@ function addRefresher(countArr, tabId, interval) {
 		delete countArr[tabIdStr];
 	}
 	var handle = window.setInterval(function() {
+		var min = 2 * 60;
 		if (countArr[tabIdStr].current > 0) {
+			if (countArr[tabIdStr].current >= countArr[tabIdStr].interval-5){
+				countArr[tabIdStr].current = Math.floor(Math.random()*(countArr[tabIdStr].interval-min+1)+min);
+			}
 			var value = countArr[tabIdStr].current--;
 			chrome.browserAction.setBadgeText({text: String(value) + 's', tabId: tabId});
+			countArr[tabIdStr].current = 0;
 			chrome.runtime.sendMessage(null, {"type": "state", "tabId": tabId, "value": value});
 		} else {
-			var min = 2 * 60;
 			var max = countArr[tabIdStr].interval;
 			var duration = Math.floor(Math.random()*(max-min+1)+min);
 			countArr[tabIdStr].current = duration;
