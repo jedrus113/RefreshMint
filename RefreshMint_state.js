@@ -52,7 +52,6 @@ function addRefresher(countArr, tabId, interval) {
 			}
 			var value = countArr[tabIdStr].current--;
 			chrome.browserAction.setBadgeText({text: String(value) + 's', tabId: tabId});
-			countArr[tabIdStr].current = 0;
 			chrome.runtime.sendMessage(null, {"type": "state", "tabId": tabId, "value": value});
 		} else {
 			var max = countArr[tabIdStr].interval;
