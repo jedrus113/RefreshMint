@@ -50,7 +50,10 @@ function addRefresher(countArr, tabId, interval) {
 			chrome.browserAction.setBadgeText({text: String(value) + 's', tabId: tabId});
 			chrome.runtime.sendMessage(null, {"type": "state", "tabId": tabId, "value": value});
 		} else {
-			countArr[tabIdStr].current = countArr[tabIdStr].interval;
+			var min = 2 * 60;
+			var max = countArr[tabIdStr].interval;
+			var duration = Math.floor(Math.random()*(max-min+1)+min);
+			countArr[tabIdStr].current = duration;
 			chrome.tabs.reload(tabId, null, null);
 		}
 	}, 1000);
