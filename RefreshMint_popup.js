@@ -14,6 +14,7 @@ function setupButtonListener() {
 		function(tab) {
 			var duration = document.getElementById("durationInput").value;
 			duration = duration - 0;
+            duration *- 60
 			if(duration != null && !isNaN(duration)) {
 				console.log(duration);
 				chrome.runtime.sendMessage(null, {"type": "begin", "tabId": tab[0]["id"], "value": duration});
